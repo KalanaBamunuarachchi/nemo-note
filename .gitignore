@@ -1,0 +1,7 @@
+
+**/.cache/
+
+**/*.dll
+**/*.exe
+**/parakeet-cli
+**/parakeet-server
