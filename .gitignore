@@ -5,3 +5,5 @@
 **/*.exe
 **/parakeet-cli
 **/parakeet-server
+**/__pycache__/
+*.pyc
