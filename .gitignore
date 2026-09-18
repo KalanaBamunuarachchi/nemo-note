@@ -40,6 +40,8 @@
 # =========================
 
 **/*.wav
+!backend/audio/harvard.wav
+
 **/*.mp3
 **/*.m4a
 **/*.flac
