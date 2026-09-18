@@ -1,3 +1,6 @@
+# =========================
+# Parakeet / local runtimes
+# =========================
 
 **/.cache/
 
@@ -5,5 +8,61 @@
 **/*.exe
 **/parakeet-cli
 **/parakeet-server
+
+# Parakeet model files
+**/*.gguf
+
+# =========================
+# Python
+# =========================
+
 **/__pycache__/
 *.pyc
+*.pyo
+
+**/.venv/
+**/venv/
+**/env/
+
+# PyInstaller
+**/*.spec
+**/build/
+**/dist/
+
+# =========================
+# Local application data
+# =========================
+
+**/settings.json
+
+# =========================
+# Audio / local test files
+# =========================
+
+**/*.wav
+**/*.mp3
+**/*.m4a
+**/*.flac
+**/*.ogg
+
+# =========================
+# Node
+# =========================
+
+**/node_modules/
+
+# =========================
+# Tauri / Rust
+# =========================
+
+**/target/
+**/gen/
+
+# =========================
+# IDE / OS
+# =========================
+
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
