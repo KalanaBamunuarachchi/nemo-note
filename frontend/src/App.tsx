@@ -32,32 +32,54 @@ function App() {
   useEffect(() => {
     async function initializeRuntime() {
       try {
-        const [runtimesResponse, settingsResponse] = await Promise.all([
-          fetch('http://127.0.0.1:8000/runtimes'),
-          fetch('http://127.0.0.1:8000/settings/runtime'),
-        ])
+        let backendReady = false
+
+        while (!backendReady) {
+          try {
+            const healthResponse = await fetch(
+              'http://127.0.0.1:8000/health'
+            )
+
+            backendReady = healthResponse.ok
+          } catch {
+            await new Promise((resolve) =>
+              setTimeout(resolve, 200)
+            )
+          }
+        }
+
+        const [runtimesResponse, settingsResponse] =
+          await Promise.all([
+            fetch('http://127.0.0.1:8000/runtimes'),
+            fetch('http://127.0.0.1:8000/settings/runtime'),
+          ])
 
         const runtimesData = await runtimesResponse.json()
         const settingsData = await settingsResponse.json()
 
-        const detectedRuntimes: RuntimeInfo[] = runtimesData.runtimes
+        const detectedRuntimes: RuntimeInfo[] =
+          runtimesData.runtimes
 
         setRuntimes(detectedRuntimes)
 
-        const availableRuntimes = detectedRuntimes.filter(
-          (item) => item.available && item.time !== null
-        )
+        const availableRuntimes =
+          detectedRuntimes.filter(
+            (item) => item.available && item.time !== null
+          )
 
         const fastestRuntime = [...availableRuntimes].sort(
-          (a, b) => (a.time ?? Infinity) - (b.time ?? Infinity)
+          (a, b) =>
+            (a.time ?? Infinity) - (b.time ?? Infinity)
         )[0]
 
         const savedRuntime = settingsData.runtime
 
-        const savedRuntimeIsAvailable = detectedRuntimes.some(
-          (item) =>
-            item.runtime === savedRuntime && item.available
-        )
+        const savedRuntimeIsAvailable =
+          detectedRuntimes.some(
+            (item) =>
+              item.runtime === savedRuntime &&
+              item.available
+          )
 
         if (savedRuntimeIsAvailable) {
           setRuntime(savedRuntime)
@@ -65,7 +87,10 @@ function App() {
           setRuntime(fastestRuntime.runtime)
         }
       } catch (error) {
-        console.error('Runtime initialization failed:', error)
+        console.error(
+          'Runtime initialization failed:',
+          error
+        )
       } finally {
         setIsDetectingRuntimes(false)
       }

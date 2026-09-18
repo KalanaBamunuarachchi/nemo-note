@@ -2,7 +2,7 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "nemo note",
   "version": "0.1.0",
-  "identifier": "com.kukuuuu.nemonote",
+  "identifier": "com.kalanabamu.nemonote",
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://localhost:5173",
